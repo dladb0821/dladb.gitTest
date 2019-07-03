@@ -1,0 +1,55 @@
+map.html 안보일까봐 메모장으로 코드 올릴게요!
+
+
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Daum 지도 시작하기</title>
+</head>
+<body onload="initMap()">
+	<div id="map" style="width:900px;height:800px;"></div>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74baf56391bfe83a1f45b6538f57cf9a"></script>
+	<script>
+	
+		function getQueryVariable(variable) {
+			var query = window.location.search.substring(1);
+			var vars = query.split("&");
+			for (var i = 0; i < vars.length; i++) {
+				var pair = vars[i].split("=");
+				if (pair[0] == variable) {
+					return pair[1];
+				}
+			}
+			return (false);
+		}
+		function gtTest() {	
+			initMap();		
+		}
+		function initMap() {
+			
+			var lt = getQueryVariable('lat');
+			var lg = getQueryVariable('lng');
+			
+			if(lt == false || lg == false){
+				lt = 33.450701;
+				lg = 126.570667;
+			}
+
+			var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+			var options = { //지도를 생성할 때 필요한 기본 옵션
+				center: new daum.maps.LatLng(lt, lg), //지도의 중심좌표.
+				level: 3 //지도의 레벨(확대, 축소 정도)
+			};
+
+			var map = new daum.maps.Map(container, options);
+			var markerPosition  = new daum.maps.LatLng(lt, lg); 
+			// 마커를 생성
+			var marker = new daum.maps.Marker({
+			    position: markerPosition
+			});
+			// 마커가 지도 위에 표시되도록 설정
+			marker.setMap(map);
+		}		
+	</script>
+</body>
+</html>
